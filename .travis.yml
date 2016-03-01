@@ -5,13 +5,17 @@ python:
 
 services: postgresql
 
+env:
+  - DJANGO_SETTINGS_MODULE=rawblog.settings.test
+  - SECRET_KEY=TRAVIS_SECRET_KEY
+
 install:
   - pip install -r requirements.txt
 
 before_script:
   - psql -c "CREATE DATABASE raw_test;" -U postgres
-  - python manage.py makemigrations --settings=rawblog.settings.test
-  - python manage.py migrate --settings=rawblog.settings.test
+  - python manage.py makemigrations
+  - python manage.py migrate
 
 script:
-  - python manage.py test --settings.rawblog.settings.test
+  - python manage.py test
