@@ -14,7 +14,7 @@ install:
   - pip install -r requirements.txt
 
 before_script:
-  - psql -c "CREATE DATABASE raw_test;" -U postgres
+  - psql -c "CREATE DATABASE travis_ci_test;" -U postgres
   - python manage.py makemigrations
   - python manage.py migrate
 
