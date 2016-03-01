@@ -1,6 +1,7 @@
 # rawBlog
 
-[![Build Status](https://travis-ci.org/gfreivasc/rawblog.svg?branch=staging)](https://travis-ci.org/gfreivasc/rawblog)
+[![Build Status](https://travis-ci.org/gfreivasc/rawblog.svg?branch=master)](https://travis-ci.org/gfreivasc/rawblog)
+[![Coverage Status](https://coveralls.io/repos/github/gfreivasc/rawblog/badge.svg?branch=master)](https://coveralls.io/github/gfreivasc/rawblog?branch=master)
 
 rawBlog is an opensource Django blogger engine made to suit multiple tastes for various different users.
 
