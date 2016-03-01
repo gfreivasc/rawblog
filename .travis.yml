@@ -9,12 +9,13 @@ env:
   global:
     - DJANGO_SETTINGS_MODULE=rawblog.settings.test
     - SECRET_KEY=TRAVIS_SECRET_KEY
+    - DATABASE_URL=postgres://postgres@localhost/raw_test
 
 install:
   - pip install -r requirements.txt
 
 before_script:
-  - psql -c "CREATE DATABASE travis_ci_test;" -U postgres
+  - psql -c "CREATE DATABASE raw_test;" -U postgres
   - python manage.py makemigrations
   - python manage.py migrate
 
