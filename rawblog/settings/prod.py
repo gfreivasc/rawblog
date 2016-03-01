@@ -81,7 +81,10 @@ WSGI_APPLICATION = 'rawblog.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL')
+        default=config(
+            'DATABASE_URL',
+            default='sqlite://'+os.path.join(BASE_DIR, 'db.sqlite3')
+        )
     )
 }
 
