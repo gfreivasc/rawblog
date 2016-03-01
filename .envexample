@@ -1,0 +1,3 @@
+DEBUG=False
+SECRET_KEY=SECRET_KEY
+DATABASE_URL=postgres://postgres@localhost:5432/raw_test
