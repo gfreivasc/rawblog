@@ -1,0 +1,17 @@
+language: python
+
+python:
+  - 2.7
+
+services: postgresql
+
+install:
+  - pip install -r requirements.txt
+
+before_script:
+  - psql -c "CREATE DATABASE raw_test;" -U postgres
+  - python manage.py makemigrations --settings=rawblog.settings.test
+  - python manage.py migrate --settings=rawblog.settings.test
+
+script:
+  - python manage.py test --settings.rawblog.settings.test
