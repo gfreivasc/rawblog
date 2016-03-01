@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 from decouple import config
-from dj_database_url import parse as db_url
+import dj_database_url
 import os
 
 
@@ -80,10 +80,9 @@ WSGI_APPLICATION = 'rawblog.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    'default': config(
-        'DATABASE_URL',
-        default=os.path.join(BASE_DIR, 'db.sqlite3'),
-        cast=db_url),
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
 }
 
 
