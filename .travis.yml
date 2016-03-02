@@ -13,6 +13,7 @@ env:
 
 install:
   - pip install -r requirements.txt
+  - pip install coveralls
 
 before_script:
   - psql -c "CREATE DATABASE raw_test;" -U postgres
@@ -20,7 +21,7 @@ before_script:
   - python manage.py migrate
 
 script:
-  - python manage.py test
+  - coverage run --source=rawblog setup.py test
 
 after_success:
   - coveralls
