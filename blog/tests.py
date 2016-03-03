@@ -55,4 +55,4 @@ class PostCreateViewTest(TestCase):
             'content':'Its good to be back!'
         })
 
-        self.assertRedirect(response, reverse('blog:posts'))
+        self.assertRedirects(response, reverse('blog:posts'))
