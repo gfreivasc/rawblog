@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.conf.urls import url
-from blog.views import *
+from blog.views import post_list_view, post_create_view
 
 app_name = 'blog'
 
