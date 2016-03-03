@@ -13,6 +13,7 @@ env:
 
 install:
   - pip install -r requirements.txt
+  - pip install coveralls
 
 before_script:
   - psql -c "CREATE DATABASE raw_test;" -U postgres
