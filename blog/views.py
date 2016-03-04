@@ -2,14 +2,14 @@
 
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.contrib.auth.models import User
+from rawauth.models import Author
+from rawauth.mixins import RawLoginRequiredMixin
 from blog.models import Post
 
 
-class PostCreateView(LoginRequiredMixin, CreateView):
+class PostCreateView(RawLoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content']
 
@@ -18,7 +18,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         post = form.save(commit=False)
-        post.author = User.objects.get(pk=self.request.user.pk)
+        post.author = Author.objects.get(pk=self.request.user.pk)
         post.save()
         return HttpResponseRedirect(self.get_success_url())
 post_create_view = PostCreateView.as_view()

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.test import TestCase
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from rawauth.models import Author
 from blog.models import Post
 
 
@@ -15,14 +15,19 @@ class PostTest(TestCase):
 class PostCreateViewTest(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create_user(
+        self.user = Author.objects.create_user(
             'test',
             'te.st@te.st',
             'test'
         )
 
     def test_form_error_null_post(self):
+        self.client.login(
+            username='test',
+            password='test'
+        )
         response = self.client.post(reverse('blog:new'), {})
+
         self.assertFormError(response, 'form', 'title',
                              'This field is required.')
         self.assertFormError(response, 'form', 'content',
@@ -55,3 +60,12 @@ class PostCreateViewTest(TestCase):
         })
 
         self.assertRedirects(response, reverse('blog:posts'))
+
+    def test_create_post_view_requires_login_and_redirects(self):
+        response = self.client.post(reverse('blog:new'))
+
+        self.assertRedirects(
+            response,
+            reverse('rawauth:login')+'?next='+reverse('blog:new'),
+            status_code=302,
+            target_status_code=200)
