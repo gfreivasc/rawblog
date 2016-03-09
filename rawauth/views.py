@@ -18,4 +18,9 @@ class AuthorCreateView(CreateView):
         new_user = authenticate(username=username, password=password)
         login(self.request, new_user)
         return valid
+
+    def get_success_url(self):
+        return self.request.GET.get(
+            'next',
+            super(AuthorCreateView, self).get_success_url())
 author_create_view = AuthorCreateView.as_view()

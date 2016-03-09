@@ -35,3 +35,12 @@ class AuthorCreateViewTest(TestCase):
         response = self.client.post(reverse('rawauth:registration'),
                                     self.post_data)
         self.assertContains(response, "Passwords don&#39;t match!")
+
+    def test_user_registration_redirects_to_next(self):
+        response = self.client.post(
+            reverse('rawauth:registration')+'?next='+reverse('blog:new'),
+            self.post_data
+        )
+
+        self.assertRedirects(response, reverse('blog:new'),
+                             status_code=302, target_status_code=200)
