@@ -1,5 +1,5 @@
 {% block content %}
-<form action="" method="POST">{% csrf_token %}
+<form method="POST" action="{% url 'rawauth:registration' %}?next={{ next }}">{% csrf_token %}
     {{ form.as_p }}
     <br>
     <input type="submit" value="Create Author" />
