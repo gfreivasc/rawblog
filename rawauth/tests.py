@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from rawauth.models import Author
@@ -17,6 +18,12 @@ class AuthorTest(TestCase):
         self.client.login(username='Meme', password='tester')
         self.assertEqual(int(self.client.session['_auth_user_id']),
                          self.author.pk)
+
+    def test_model_unicode_format(self):
+        self.author.first_name = 'Brizola'
+        self.author.last_name = 'Memes'
+        self.author.save()
+        self.assertEqual(unicode(self.author), self.author.get_full_name())
 
 
 class AuthorCreateViewTest(TestCase):

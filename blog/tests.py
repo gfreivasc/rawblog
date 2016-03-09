@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from rawauth.models import Author
@@ -25,6 +24,9 @@ class PostTest(TestCase):
         self.post.content = 'A whole new thing'
         self.post.save()
         self.assertNotEqual(self.post.last_edited, self.post.written_in)
+
+    def test_unicode_format(self):
+        self.assertEqual(unicode(self.post), self.post.title+ ' - ')
 
 
 class PostCreateViewTest(TestCase):
