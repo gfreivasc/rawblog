@@ -19,11 +19,6 @@ class AuthorCreateView(CreateView):
         login(self.request, new_user)
         return valid
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(AuthorCreateView, self).get_context_data(**kwargs)
-    #     context['next'] = self.request.GET['next']
-    #     return context
-
     def get_success_url(self):
         return self.request.GET.get(
             'next',
