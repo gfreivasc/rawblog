@@ -1,0 +1,4 @@
+uses: django
+autodetect: yes
+ignore-paths:
+  - rawblog/settings
