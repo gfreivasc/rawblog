@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-from __future__ import unicode_literals
-
 from django.db import models
 from rawauth.models import Author
 
@@ -16,3 +13,6 @@ class Post(models.Model):
     class Meta:
         verbose_name = "Post"
         verbose_name_plural = "Posts"
+
+    def __unicode__(self):
+        return '{0} - {1}'.format(self.title, self.author)

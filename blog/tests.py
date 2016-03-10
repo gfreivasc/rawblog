@@ -1,31 +1,44 @@
 # -*- coding: utf-8 -*-
-
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from rawauth.models import Author
 from blog.models import Post
+from model_mommy import mommy
 
 
 class PostTest(TestCase):
 
-    def test_case(self):
-        pass
+    def setUp(self):
+        self.author = Author.objects.create_user(
+            'test',
+            'te.st@te.st',
+            'test')
+        self.author.save()
+        self.post = mommy.make(Post, author=self.author)
+        self.post.save()
+
+    def test_post_created_successfully(self):
+        self.assertEqual(len(Post.objects.filter(author=self.author)), 1)
+
+    def test_post_last_edited(self):
+        self.post.content = 'A whole new thing'
+        self.post.save()
+        self.assertNotEqual(self.post.last_edited, self.post.written_in)
+
+    def test_unicode_format(self):
+        self.assertEqual(unicode(self.post), self.post.title+ ' - ')
 
 
 class PostCreateViewTest(TestCase):
 
     def setUp(self):
-        self.user = Author.objects.create_user(
+        self.author = Author.objects.create_user(
             'test',
             'te.st@te.st',
-            'test'
-        )
+            'test')
 
     def test_form_error_null_post(self):
-        self.client.login(
-            username='test',
-            password='test'
-        )
+        self.client.login(username='test', password='test')
         response = self.client.post(reverse('blog:new'), {})
 
         self.assertFormError(response, 'form', 'title',
@@ -33,31 +46,23 @@ class PostCreateViewTest(TestCase):
         self.assertFormError(response, 'form', 'content',
                              'This field is required.')
 
-    def test_assign_logged_in_user(self):
-        self.client.login(
-            username='test',
-            password='test'
-        )
+    def test_assign_logged_in_author(self):
+        self.client.login(username='test', password='test')
 
         self.client.post(reverse('blog:new'), {
             'title': 'Hello World!',
-            'content': 'Its good to be back!'
-        })
+            'content': 'Its good to be back!'})
 
-        post = Post.objects.get(author__pk=self.user.pk)
+        post = Post.objects.get(author__pk=self.author.pk)
         self.assertNotEqual(post, None)
         self.assertEqual(post.title, 'Hello World!')
 
     def test_redirect_correctly(self):
-        self.client.login(
-            username='test',
-            password='test'
-        )
+        self.client.login(username='test', password='test')
 
         response = self.client.post(reverse('blog:new'), {
             'title': 'Hello World!',
-            'content': 'Its good to be back!'
-        })
+            'content': 'Its good to be back!'})
 
         self.assertRedirects(response, reverse('blog:posts'))
 

@@ -7,7 +7,7 @@ services: postgresql
 
 env:
   global:
-    - DJANGO_SETTINGS_MODULE=rawblog.settings.test
+    - DJANGO_SETTINGS_MODULE=rawblog.settings.prod
     - SECRET_KEY=TRAVIS_SECRET_KEY
     - DATABASE_URL=postgres://postgres@localhost/raw_test
 
@@ -19,9 +19,10 @@ before_script:
   - psql -c "CREATE DATABASE raw_test;" -U postgres
   - python manage.py makemigrations
   - python manage.py migrate
+  - python manage.py collectstatic --noinput
 
 script:
-  - python manage.py test
+  - coverage run --source=rawauth,blog manage.py test
 
 after_success:
   - coveralls

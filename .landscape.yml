@@ -1,0 +1,8 @@
+uses:
+  - django
+autodetect: yes
+ignore-paths:
+  - rawblog/settings
+pylint:
+  disable:
+    - old-style-class
