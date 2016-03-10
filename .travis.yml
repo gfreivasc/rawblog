@@ -7,7 +7,7 @@ services: postgresql
 
 env:
   global:
-    - DJANGO_SETTINGS_MODULE=rawblog.settings.test
+    - DJANGO_SETTINGS_MODULE=rawblog.settings.prod
     - SECRET_KEY=TRAVIS_SECRET_KEY
     - DATABASE_URL=postgres://postgres@localhost/raw_test
 
