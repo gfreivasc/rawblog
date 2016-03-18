@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from rawauth.models import Author
@@ -26,3 +27,8 @@ post_create_view = PostCreateView.as_view()
 class PostListView(ListView):
     model = Post
 post_list_view = PostListView.as_view()
+
+
+class PostDetailView(DetailView):
+    model = Post
+post_view = PostDetailView.as_view()

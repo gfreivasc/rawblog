@@ -1,0 +1,4 @@
+<h1>{{ object.title }}</h1>
+<h6>{{ object.author }} - Written in {{ object.written_in }}{% if object.last_edited < object.written_in %}, Last edited {{object.last_edited}}{% endif %}<h6>
+<hr>
+<p>{{ object.content }}</p>
