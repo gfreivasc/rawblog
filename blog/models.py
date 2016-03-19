@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.template.defaultfilters import slugify
 from rawauth.models import Author
@@ -42,6 +43,14 @@ class Post(BlogModel):
         if not hasattr(self, '_slug'):
             self._slug = slugify(self.title)
         return self._slug
+
+    def get_absolute_url(self):
+        return reverse('blog:post', kwargs={
+            'y': self.y,
+            'm': self.m,
+            'd': self.d,
+            'slug': self.slug,
+            'pk': self.pk})
 
 
 class Comment(BlogModel):

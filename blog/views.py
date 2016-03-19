@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-from django.views.generic.edit import CreateView
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
+from blog.models import Post
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.views.generic.edit import CreateView
+from django.views.generic.edit import UpdateView
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 from rawauth.models import Author
 from rawauth.mixins import RawLoginRequiredMixin
-from blog.models import Post
 
 
 class PostCreateView(RawLoginRequiredMixin, CreateView):
@@ -32,3 +33,10 @@ post_list_view = PostListView.as_view()
 class PostDetailView(DetailView):
     model = Post
 post_view = PostDetailView.as_view()
+
+
+class PostUpdateView(UpdateView):
+    model = Post
+    fields = ['title', 'content']
+post_update_view = PostUpdateView.as_view()
+        
