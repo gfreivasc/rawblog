@@ -41,4 +41,3 @@ class PostUpdateView(UpdateView):
     model = Post
     fields = ['title', 'content']
 post_update_view = PostUpdateView.as_view()
-        
