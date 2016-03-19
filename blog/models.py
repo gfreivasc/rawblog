@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.template.defaultfilters import slugify
 from rawauth.models import Author
 from rawauth.models import Commentator
 
@@ -18,6 +17,7 @@ class BlogModel(models.Model):
 class Post(BlogModel):
     author = models.ForeignKey(Author)
     title = models.CharField(max_length=250)
+    slug = models.CharField(max_length=250, null=True, blank=True)
 
     class Meta:
         verbose_name = "Post"
@@ -38,19 +38,12 @@ class Post(BlogModel):
     def y(self):
         return self.written_in.date().year
 
-    @property
-    def slug(self):
-        if not hasattr(self, '_slug'):
-            self._slug = slugify(self.title)
-        return self._slug
-
     def get_absolute_url(self):
         return reverse('blog:post', kwargs={
             'y': self.y,
             'm': self.m,
             'd': self.d,
-            'slug': self.slug,
-            'pk': self.pk})
+            'slug': self.slug})
 
 
 class Comment(BlogModel):

@@ -4,5 +4,5 @@
 <hr>
 <p>{{ object.content }}</p>
 {% if object.author == user %}
-<a href="{% url 'blog:update' post.y post.m post.d post.slug post.pk %}">Edit</a>
+<a href="{% url 'blog:update' post.y post.m post.d post.slug %}">Edit</a>
 {% endif %}

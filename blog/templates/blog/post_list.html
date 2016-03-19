@@ -2,7 +2,7 @@
 <ul>
 {% for post in object_list %}
     <li>
-    <a href="{% url 'blog:post' post.y post.m post.d post.slug post.pk %}">
+    <a href="{% url 'blog:post' post.y post.m post.d post.slug %}">
     {{ post.title }}
     </a>
     </li>

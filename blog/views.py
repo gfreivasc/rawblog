@@ -2,6 +2,7 @@
 from blog.models import Post
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.template.defaultfilters import slugify
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.detail import DetailView
@@ -20,6 +21,7 @@ class PostCreateView(RawLoginRequiredMixin, CreateView):
     def form_valid(self, form):
         post = form.save(commit=False)
         post.author = Author.objects.get(pk=self.request.user.pk)
+        post.slug = slugify(post.title)
         post.save()
         return HttpResponseRedirect(self.get_success_url())
 post_create_view = PostCreateView.as_view()
