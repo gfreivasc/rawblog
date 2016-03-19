@@ -23,7 +23,7 @@ class Post(BlogModel):
         verbose_name_plural = "Posts"
 
     def __unicode__(self):
-        return '{0} - {1}'.format(self.title, self.author)
+        return u'{0} - {1}'.format(self.title, self.author)
 
     @property
     def d(self):
@@ -39,7 +39,9 @@ class Post(BlogModel):
 
     @property
     def slug(self):
-        return slugify(self.title)
+        if not hasattr(self, '_slug'):
+            self._slug = slugify(self.title)
+        return self._slug
 
 
 class Comment(BlogModel):
@@ -51,4 +53,4 @@ class Comment(BlogModel):
         verbose_name_plural = "Comments"
 
     def __unicode__(self):
-        return '{0} on {1}'.format(self.commentator, self.post.title)
+        return u'{0} on {1}'.format(self.commentator, self.post.title)
