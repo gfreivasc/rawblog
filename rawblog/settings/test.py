@@ -2,11 +2,11 @@
 
 from prod import *
 
-THIRDPARTY_APPS = [
+TEST_THIRDPARTY_APPS = [
     'django_nose',
 ]
 
-INSTALLED_APPS += THIRDPARTY_APPS
+INSTALLED_APPS += TEST_THIRDPARTY_APPS
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 

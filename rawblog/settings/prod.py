@@ -50,7 +50,9 @@ RAW_APPS = [
     'blog',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + RAW_APPS
+THIRDPARTY_APPS = []
+
+INSTALLED_APPS = DJANGO_APPS + RAW_APPS + THIRDPARTY_APPS
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',

@@ -1,8 +1,9 @@
+{% load post_urls %}
 <h1>Posts</h1>
 <ul>
 {% for post in object_list %}
     <li>
-    <a href="{% url 'blog:post' post.y post.m post.d post.slug %}">
+    <a href="{% post-url post %}">
     {{ post.title }}
     </a>
     </li>
