@@ -1,7 +1,11 @@
 <h1>Posts</h1>
 <ul>
 {% for post in object_list %}
-    <li>{{ post.title }} - {{ post.content }}</li>
+    <li>
+    <a href="{% url 'blog:post' post.y post.m post.d post.slug post.pk %}">
+    {{ post.title }} - {{ post.author }}
+    </a>
+    </li>
 {% empty %}
     <li>No articles yet.</li>
 {% endfor %}

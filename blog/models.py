@@ -27,20 +27,19 @@ class Post(BlogModel):
 
     @property
     def d(self):
-        return self.written_in.date.day
+        return self.written_in.date().day
 
     @property
     def m(self):
-        return self.written_in.date.month
+        return self.written_in.date().month
 
     @property
     def y(self):
-        return self.written_in.date.year
+        return self.written_in.date().year
 
     @property
     def slug(self):
         return slugify(self.title)
-    
 
 
 class Comment(BlogModel):
