@@ -43,6 +43,12 @@ class Post(BlogModel):
             'd': self.d,
             'slug': self.slug})
 
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            super(Post, self).save(*args, **kwargs)
+            self.set_written_in_data()
+        super(Post, self).save(*args, **kwargs)
+
 
 class Comment(BlogModel):
     post = models.ForeignKey(Post)

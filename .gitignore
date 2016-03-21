@@ -13,6 +13,7 @@ staticfiles/
 # Test Coverage
 .coverage
 cover/
+htmlcov/
 
 # General
 .DS_Store

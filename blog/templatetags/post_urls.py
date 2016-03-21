@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from blog.models import Post
 from classytags.core import Tag, Options
 from classytags.arguments import Argument
 from django.core.urlresolvers import reverse
@@ -13,7 +12,7 @@ class PostURLTag(Tag):
     options = Options(
         Argument('post'))
 
-    def render_tag(self, context, post):
+    def render_tag(self, context, post):  # noqa
         try:
             output = post.get_absolute_url()
         except AttributeError:
@@ -28,7 +27,7 @@ class PostUpdateURLTag(Tag):
     options = Options(
         Argument('post'))
 
-    def render_tag(self, context, post):
+    def render_tag(self, context, post):  # noqa
         try:
             output = reverse('blog:update', kwargs={
                 'y': post.y,

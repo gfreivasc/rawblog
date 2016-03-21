@@ -21,8 +21,6 @@ class PostCreateView(RawLoginRequiredMixin, CreateView):
     def form_valid(self, form):
         post = form.save(commit=False)
         post.author = Author.objects.get(pk=self.request.user.pk)
-        post.slug = slugify(post.title)
-        post.set_written_in_data()
         post.save()
         return HttpResponseRedirect(self.get_success_url())
 post_create_view = PostCreateView.as_view()

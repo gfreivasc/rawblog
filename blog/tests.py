@@ -14,7 +14,7 @@ class PostTest(TestCase):
             'te.st@te.st',
             'test')
         self.author.save()
-        self.post = mommy.make(Post, author=self.author)
+        self.post = mommy.make(Post, author=self.author, title='Mommy Maid')
         self.post.save()
 
     def test_post_created_successfully(self):
@@ -26,7 +26,12 @@ class PostTest(TestCase):
         self.assertNotEqual(self.post.last_edited, self.post.written_in)
 
     def test_unicode_format(self):
-        self.assertEqual(unicode(self.post), self.post.title+ ' - ')
+        self.assertEqual(unicode(self.post), self.post.title + ' - ')
+
+    def test_slug_integrity(self):
+        post2 = mommy.make(Post, author=self.author, title='Mommy Maid')
+        post2.save()
+        self.assertNotEqual(post2.slug, self.post.slug)
 
 
 class PostCreateViewTest(TestCase):
