@@ -31,7 +31,6 @@ class PostTest(TestCase):
     def test_slug_integrity(self):
         post2 = mommy.make(Post, author=self.author, title='Mommy Maid')
         post2.save()
-        import ipdb; ipdb.set_trace()
         self.assertNotEqual(post2.slug, self.post.slug)
 
 
