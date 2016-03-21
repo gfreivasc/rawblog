@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from autoslug import AutoSlugField
 from django.core.urlresolvers import reverse
 from django.db import models
 from rawauth.models import Author
@@ -17,7 +18,11 @@ class BlogModel(models.Model):
 class Post(BlogModel):
     author = models.ForeignKey(Author)
     title = models.CharField(max_length=250)
-    slug = models.CharField(max_length=250, null=True, blank=True)
+    slug = AutoSlugField(populate_from='title', unique_with=['d', 'm', 'y'],
+                         null=True, blank=True)
+    d = models.PositiveIntegerField(default=1, null=True, blank=True)
+    m = models.PositiveIntegerField(default=1, null=True, blank=True)
+    y = models.PositiveIntegerField(default=2016, null=True, blank=True)
 
     class Meta:
         verbose_name = "Post"
@@ -26,17 +31,10 @@ class Post(BlogModel):
     def __unicode__(self):
         return u'{0} - {1}'.format(self.title, self.author)
 
-    @property
-    def d(self):
-        return self.written_in.date().day
-
-    @property
-    def m(self):
-        return self.written_in.date().month
-
-    @property
-    def y(self):
-        return self.written_in.date().year
+    def set_written_in_data(self):
+        self.d = self.written_in.date().day
+        self.m = self.written_in.date().month
+        self.y = self.written_in.date().year
 
     def get_absolute_url(self):
         return reverse('blog:post', kwargs={

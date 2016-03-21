@@ -10,7 +10,8 @@ class PostAdmin(admin.ModelAdmin):
     '''
     list_display = ('title', 'author', 'written_in', 'last_edited')
     list_filter = ('author',)
-    readonly_fields = ('content','slug',)
+    exclude = ('d', 'm', 'y')
+    readonly_fields = ('content', 'slug',)
     search_fields = ('title', 'author',)
 
 

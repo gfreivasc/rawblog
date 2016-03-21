@@ -7,6 +7,7 @@ from django.template import Library
 
 register = Library()
 
+
 class PostURLTag(Tag):
     name = 'post-url'
     options = Options(
@@ -30,10 +31,10 @@ class PostUpdateURLTag(Tag):
     def render_tag(self, context, post):
         try:
             output = reverse('blog:update', kwargs={
-            'y': post.y,
-            'm': post.m,
-            'd': post.d,
-            'slug': post.slug})
+                'y': post.y,
+                'm': post.m,
+                'd': post.d,
+                'slug': post.slug})
         except AttributeError:
             raise Exception("'post-update-url' template tag argument must be "
                             "'Post' object.")

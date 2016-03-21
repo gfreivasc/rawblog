@@ -22,6 +22,7 @@ class PostCreateView(RawLoginRequiredMixin, CreateView):
         post = form.save(commit=False)
         post.author = Author.objects.get(pk=self.request.user.pk)
         post.slug = slugify(post.title)
+        post.set_written_in_data()
         post.save()
         return HttpResponseRedirect(self.get_success_url())
 post_create_view = PostCreateView.as_view()
@@ -34,6 +35,15 @@ post_list_view = PostListView.as_view()
 
 class PostDetailView(DetailView):
     model = Post
+
+    def get_queryset(self):
+        queryset = super(PostDetailView, self).get_queryset()
+        queryset = queryset.filter(**{
+            'y': int(self.kwargs['y']),
+            'm': int(self.kwargs['m']),
+            'd': int(self.kwargs['d'])
+        })
+        return queryset
 post_view = PostDetailView.as_view()
 
 
